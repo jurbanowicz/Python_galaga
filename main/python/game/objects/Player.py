@@ -1,5 +1,6 @@
 import pygame
 from settings import *
+import settings
 
 class Player(pygame.sprite.Sprite):
 
@@ -13,7 +14,8 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft = position)
 
         self.life = 100
-        self.speed = 8
+        self.speed = 20 # Modify the speed of the spaceship
+        self.rect.center = WIDTH/2, HEIGHT - 100
 
         self.direction = pygame.math.Vector2()
 
@@ -38,12 +40,20 @@ class Player(pygame.sprite.Sprite):
 
     def check_boundaries(self) -> None:
 
-        for sprite in self.boundary_sprites:
-            if sprite.rect.colliderect(self.rect):
-                if self.direction.x > 0:
-                    self.rect.right = sprite.rect.right
-                if self.direction.x < 0:
-                    self.rect.left = sprite.rect.left
+        # for sprite in self.boundary_sprites:
+        #     if sprite.rect.colliderect(self.rect):
+        #         if self.direction.x > 0:
+        #             self.rect.right = sprite.rect.right
+        #         if self.direction.x < 0:
+        #             self.rect.left = sprite.rect.left
+
+        if self.rect.center[0] <= 0:
+            self.rect.center = 0, self.rect.center[1]
+            self.direction.x = 0
+
+        if self.rect.center[0] >= WIDTH:
+            self.rect.center = WIDTH, self.rect.center[1]
+            self.direction.x = 0
 
 
     def update(self) -> None:

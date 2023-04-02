@@ -32,8 +32,8 @@ class Level:
                 y = row_index * TITLESIZE
                 
 
-                if col == 'x':
-                    Boundary((x, y), [self.boundary_sprites])
+                # if col == 'x':
+                #     Boundary((x, y), [self.boundary_sprites])
 
                 if col == 'p':
                     self.player = Player((x, y), [self.visible_sprites], self.boundary_sprites, self.missle_sprites)
@@ -51,5 +51,4 @@ class Level:
 
         self.visible_sprites.draw(self.display_surface)
         self.visible_sprites.update()
-
         debug(self.player.direction)
