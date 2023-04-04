@@ -3,9 +3,10 @@ from settings import *
 
 class Missle(pygame.sprite.Sprite):
 
-    def __init__(self, position: tuple, 
-                 y_direction: int, 
-                 groups: list) -> None:
+    def __init__(self, 
+                 position: tuple, 
+                 groups: list,
+                 y_direction: int = 1) -> None:
         
         super().__init__(groups)
         self.image =  pygame.image.load('main/python/resources/missle1.png')

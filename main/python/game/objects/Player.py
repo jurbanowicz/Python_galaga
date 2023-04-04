@@ -4,7 +4,8 @@ import settings
 
 class Player(pygame.sprite.Sprite):
 
-    def __init__(self, position: tuple, 
+    def __init__(self, 
+                 position: tuple, 
                  groups: list, 
                  boundary_sprites: pygame.sprite.Group,
                  missle_sprites: pygame.sprite.Group ) -> None:
@@ -14,7 +15,7 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft = position)
 
         self.life = 100
-        self.speed = 20 # Modify the speed of the spaceship
+        self.speed = 20     # Modify the speed of the spaceship
         self.rect.center = WIDTH/2, HEIGHT - 100
 
         self.direction = pygame.math.Vector2()
@@ -34,9 +35,16 @@ class Player(pygame.sprite.Sprite):
             self.direction.x = 0
 
 
+        if keys[pygame.K_SPACE]:
+            pass
+
+
     def move(self) -> None:
         self.rect.center += self.direction * self.speed
         self.check_boundaries()
+
+    def shoot(self) -> None:
+        pass
 
     def check_boundaries(self) -> None:
 
