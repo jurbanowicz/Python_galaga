@@ -5,7 +5,8 @@ from time import time
 
 class Player(pygame.sprite.Sprite):
 
-    def __init__(self, position: tuple, 
+    def __init__(self, 
+                 position: tuple, 
                  groups: list, 
                  boundary_sprites: pygame.sprite.Group,
                  missle_sprites: pygame.sprite.Group ) -> None:
@@ -42,6 +43,10 @@ class Player(pygame.sprite.Sprite):
 
         else:
             self.direction.x = 0
+
+
+        if keys[pygame.K_SPACE]:
+            pass
 
 
     def move(self) -> None:
