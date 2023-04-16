@@ -3,6 +3,7 @@ from settings import *
 import settings
 from time import time
 
+
 class Player(pygame.sprite.Sprite):
 
     def __init__(self, 
@@ -20,14 +21,17 @@ class Player(pygame.sprite.Sprite):
 
         self.life = 100
         self.speed = 8 # Modify the speed of the spaceship
-        self.rect.center = WIDTH/2, HEIGHT - 100
+        self.rect.center = WIDTH/2, HEIGHT - self.player_height
 
         self.last_shot = time()
-        self.shooting_limiter = 1 # time between shots
+        self.shot_fired = False
+        self.shooting_limiter = 0.5 # time between shots
 
+        self.score = 0
         self.direction = pygame.math.Vector2()
 
-        # self.boundary_sprites = boundary_sprites
+    def get_postition(self):
+        return self.rect.center
 
     def input(self) -> None:
         keys = pygame.key.get_pressed()
@@ -56,15 +60,11 @@ class Player(pygame.sprite.Sprite):
     def shoot(self) -> None:
         if time() - self.last_shot > self.shooting_limiter:
             self.last_shot = time()
+            self.shot_fired = True
+            print(f'SHOT FIRED: {self.shot_fired}')
+
 
     def check_boundaries(self) -> None:
-
-        # for sprite in self.boundary_sprites:
-        #     if sprite.rect.colliderect(self.rect):
-        #         if self.direction.x > 0:
-        #             self.rect.right = sprite.rect.right
-        #         if self.direction.x < 0:
-        #             self.rect.left = sprite.rect.left
 
         if self.rect.center[0] - self.player_width/2 <= 0:
             self.rect.center = self.player_width/2, self.rect.center[1]
