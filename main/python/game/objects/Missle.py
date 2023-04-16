@@ -17,7 +17,7 @@ class Missle(pygame.sprite.Sprite):
         self.rect.center = position
 
         self.direction = pygame.Vector2(x = 0, y = y_direction) #y_direction = 1 lub -1
-        self.speed = 5
+        self.speed = 8
 
 
     def move(self) -> None:
