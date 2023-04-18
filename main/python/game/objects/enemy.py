@@ -25,6 +25,8 @@ class Enemy(Spaceship):
         self.rect = self.image.get_rect(topleft = position)
 
         self.rect.center = position
+
+        self.life = enemy_info['life']
         
         self.speed = enemy_info['speed']
         self.direction = pygame.Vector2()

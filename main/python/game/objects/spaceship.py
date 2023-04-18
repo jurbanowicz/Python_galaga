@@ -16,8 +16,7 @@ class Spaceship(Entity):
 
         self.last_shot = time()
         self.shot_fired = False
-        self.shooting_limiter = 1 # time between shots
-
+        self.shooting_limiter = 1
         self.missle_sprites = missle_sprites
 
     
