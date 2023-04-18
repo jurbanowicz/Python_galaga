@@ -28,9 +28,9 @@ class Enemy(Spaceship):
         
         self.speed = enemy_info['speed']
         self.direction = pygame.Vector2()
-
-        self.shooting_limiter = 0.5 # time between shots
+    
 
     def update(self) -> None:
         self.damage()
+        self.shoot()
         self.move()
