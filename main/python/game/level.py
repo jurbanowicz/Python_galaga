@@ -90,7 +90,6 @@ class Level:
 
         self.draw_background()
         self.visible_sprites.draw(self.display_surface)
-        print(len(self.missle_sprites))
         self.check_missle_fired()
         self.enemies_shoot()
         self.check_missle_collistion()

@@ -3,6 +3,8 @@ from settings import *
 from time import time
 from objects.entity import Entity
 
+import random
+
 class Spaceship(Entity):
 
     def __init__(self,
@@ -16,7 +18,8 @@ class Spaceship(Entity):
 
         self.last_shot = time()
         self.shot_fired = False
-        self.shooting_limiter = 1
+        self.shooting_limiter = 1 + random.uniform(-0.4, 0.4) # time between shots
+
         self.missle_sprites = missle_sprites
 
     
