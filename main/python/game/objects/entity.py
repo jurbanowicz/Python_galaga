@@ -25,7 +25,7 @@ class Entity(pygame.sprite.Sprite):
 
         self.exists = True
 
-    def get_postition(self):
+    def get_position(self):
         return self.rect.center
     
     def move(self) -> None:
