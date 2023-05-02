@@ -9,9 +9,10 @@ class Enemy(Spaceship):
                  position: tuple, 
                  groups: list,
                  type: str,
-                 missle_sprites: pygame.sprite.Group) -> None:
+                 missle_sprites: pygame.sprite.Group,
+                 level) -> None:
         
-        super().__init__(position, groups, missle_sprites)
+        super().__init__(position, groups, missle_sprites, level)
 
         self.enemy_type = type
         enemy_info = enemy_data[self.enemy_type]
@@ -30,6 +31,8 @@ class Enemy(Spaceship):
         
         self.speed = enemy_info['speed']
         self.direction = pygame.Vector2()
+
+        self.level = level
     
 
     def update(self) -> None:

@@ -23,6 +23,8 @@ class Entity(pygame.sprite.Sprite):
         self.direction = pygame.Vector2()
         self.rect.center = WIDTH/2, HEIGHT
 
+        self.position = position
+
         self.exists = True
 
     def get_position(self):
@@ -31,6 +33,7 @@ class Entity(pygame.sprite.Sprite):
     def move(self) -> None:
         self.rect.center += self.direction * self.speed
         self.check_boundaries()
+        self.position = self.rect.center
 
     def check_boundaries(self) -> None:
 

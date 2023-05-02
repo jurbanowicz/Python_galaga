@@ -8,8 +8,7 @@ class Missle(Entity):
                  position: tuple, 
                  groups: list,
                  type: str,
-                 y_direction: int,
-                 spaceship_sprites: pygame.sprite.Group) -> None:
+                 y_direction: int) -> None:
         
         super().__init__(position, groups)
         self.missle_type = type
@@ -32,7 +31,7 @@ class Missle(Entity):
 
         self.damage = missle_info['damage']
 
-        self.spaceship_sprites = spaceship_sprites
+        # self.spaceship_sprites = spaceship_sprites
 
 
 

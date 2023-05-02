@@ -1,7 +1,8 @@
 import pygame, sys
 from settings import *
 from debug import debug
-from level import Level
+# from level import Level
+from level_engine import Level_engine
 
 
 class Game:
@@ -11,7 +12,8 @@ class Game:
         pygame.display.set_caption("Spaceship")
         self.clock = pygame.time.Clock()
 
-        self.level = Level()
+        # self.level = Level()
+        self.level_engine = Level_engine()
 
     def run(self) -> None:
         while True:
@@ -21,7 +23,8 @@ class Game:
                     sys.exit()
 
             self.screen.fill('black')
-            self.level.run()
+            # self.level.run()
+            self.level_engine.run()
             pygame.display.update()
             self.clock.tick(FPS)
 
