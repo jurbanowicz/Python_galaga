@@ -10,7 +10,14 @@ missle_data = {
                'damage' : 10, 
                'speed' : 10,
                'cooldown' : 0.5, 
-               'image_path' : 'main/python/resources/missle_red.png'}
+               'image_path' : 'main/python/resources/missle_red.png'},
+    'basic_green' : {'height' : 40,
+               'width' : 20,
+               'damage' : 10, 
+               'speed' : 10,
+               'cooldown' : 0.5, 
+               'image_path' : 'main/python/resources/missle_green.png'}
+
 }
 
 enemy_data = {

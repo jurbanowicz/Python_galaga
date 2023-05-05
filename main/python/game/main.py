@@ -5,6 +5,7 @@ from debug import debug
 from level_engine import Level_engine
 
 
+
 class Game:
     def __init__(self) -> None:
         pygame.init()
