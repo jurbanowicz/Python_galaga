@@ -26,13 +26,13 @@ class Spaceship(Entity):
         self.position = position
         self.missle_sprites = missle_sprites
 
+        self.missle_type = 'basic'
     
-
     def shoot(self, direction = 1) -> None:
         if time() - self.last_shot > self.shooting_limiter:
             self.last_shot = time()
             # self.shot_fired = True
-            missle = Missle((self.position[0], self.position[1] + direction*50), [], 'basic', direction)
+            missle = Missle((self.position[0], self.position[1] + direction*50), [], self.missle_type, direction)
             self.level.missle_fired(missle)
             # print(f'SHOT FIRED: {self.shot_fired}')
             print(self.position)

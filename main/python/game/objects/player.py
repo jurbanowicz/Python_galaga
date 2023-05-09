@@ -35,6 +35,8 @@ class Player(Spaceship):
         self.position = self.rect.center
 
         self.score = 0
+
+        self.missle_type = 'basic_green'
         
     def input(self) -> None:
         keys = pygame.key.get_pressed()
@@ -50,7 +52,6 @@ class Player(Spaceship):
 
         else:
             self.direction.x = 0
-
 
     def update(self) -> None:
         self.input()

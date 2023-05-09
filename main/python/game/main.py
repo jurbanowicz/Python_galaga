@@ -5,6 +5,7 @@ from debug import debug
 from level_engine import Level_engine
 
 
+
 class Game:
     def __init__(self) -> None:
         pygame.init()
@@ -20,7 +21,7 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
-                    sys.exit()
+                    sys.exit() 
 
             self.screen.fill('black')
             # self.level.run()

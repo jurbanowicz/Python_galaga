@@ -22,6 +22,8 @@ class Level_engine:
 
         self.load_map()
 
+        self.level_done = False
+
         
     def load_map(self, preset = None):
         # preset could possibly be a file with information on how enemies should spawn in given level...
@@ -58,15 +60,13 @@ class Level_engine:
                 del sprite
                 self.player.score += 10
 
-    def get_score(self):
-        return self.player.score()
-
     def run(self):
         self.spaceship_sprites.update()
         self.missle_sprites.update()
         self.generate_enemies(3)
         self.check_missle_collistion()
         self.gui.update()
+
 
     
 
