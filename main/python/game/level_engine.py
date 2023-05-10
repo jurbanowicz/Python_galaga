@@ -1,4 +1,5 @@
 import pygame
+from time import time
 from level import Level
 from objects.missle import Missle
 from objects.player import Player
@@ -23,6 +24,9 @@ class Level_engine:
         self.load_map()
 
         self.level_done = False
+        self.level = 2
+
+        self.stage_start_time = 0
 
         
     def load_map(self, preset = None):
@@ -34,12 +38,14 @@ class Level_engine:
 
 
     def generate_enemies(self, n: int):
-        if (len(self.enemies_sprites) > 0):
+        if (len(self.enemies_sprites) > 0 or len(self.missle_sprites) > 0 or len(self.booster_sprites) > 0):
             return
         for i in range(n):
-            enemy = (Enemy((randint(30, WIDTH-30), 70), [self.enemies_sprites, self.spaceship_sprites], 'basic', self.missle_sprites, self))
+            enemy = (Enemy((randint(30, WIDTH-30), -10), [self.enemies_sprites, self.spaceship_sprites], 'basic', self.missle_sprites, self))
             self.enemies_sprites.add(enemy)
             self.gui.visible_sprites.add(enemy)
+        self.stage_start_time = time()
+        self.level += 1
 
 
     def missle_fired(self, missle: Missle):
@@ -60,12 +66,25 @@ class Level_engine:
                 del sprite
                 self.player.score += 10
 
-    def run(self):
+    def load_stage(self):
+        self.enemies_sprites.update("spawn")
+        self.player.update("spawn")
+        self.gui.update()
+
+
+    def stage(self):
         self.spaceship_sprites.update()
         self.missle_sprites.update()
-        self.generate_enemies(3)
+
         self.check_missle_collistion()
         self.gui.update()
+
+    def run(self):
+        self.generate_enemies(self.level)
+        if time() - self.stage_start_time <= 2: 
+            self.load_stage()
+        else:
+            self.stage()
 
 
     

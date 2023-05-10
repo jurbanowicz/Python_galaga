@@ -14,18 +14,29 @@ missle_data = {
     'basic_green' : {'height' : 40,
                'width' : 20,
                'damage' : 10, 
-               'speed' : 10,
+               'speed' : 8,
                'cooldown' : 0.5, 
-               'image_path' : 'main/python/resources/missle_green.png'}
-
+               'image_path' : 'main/python/resources/missle_green.png'},
+    'bomb' : {'height' : 16,
+               'width' : 16,
+               'damage' : 30, 
+               'speed' : 6,
+               'cooldown' : 0.5, 
+               'image_path' : 'main/python/resources/bomb.png'},
 }
 
 enemy_data = {
-    'basic' : {'height' : 60,
-               'width' : 60,
+    'basic' : {'height' : 50,
+               'width' : 50,
                'life' : 30, 
                'exp' : 0, 
-               'missle_type' : 'basic', 
-               'speed' : 5, 
-               'image_path' : 'main/python/resources/basic_enemy.png'}
+               'missle_type' : 'basic_green', 
+               'speed' : 0.2, 
+               'image_path' : 'main/python/resources/basic_enemy2.png'}
+}
+booster_data = {
+    'shield' : {},
+    'health' : {},
+    'bomb' : {},
+    'freezer' : {}
 }

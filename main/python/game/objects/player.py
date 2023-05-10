@@ -15,9 +15,9 @@ class Player(Spaceship):
         
         super().__init__(position, groups, missle_sprites, level)
         
-        self.width = 60
-        self.height = 60
-        tmp_image = pygame.image.load('main/python/resources/player1.png').convert_alpha()
+        self.width = 75
+        self.height = 75
+        tmp_image = pygame.image.load('main/python/resources/player2.png').convert_alpha()
         self.image = pygame.transform.scale(tmp_image, (self.width, self.height))
         self.rect = self.image.get_rect(topleft = position)
 
@@ -36,13 +36,18 @@ class Player(Spaceship):
 
         self.score = 0
 
-        self.missle_type = 'basic_green'
+        self.missles = {"bomb" : 10}
         
-    def input(self) -> None:
+    def input(self, type = None) -> None:
         keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_SPACE]:
-            self.shoot(direction = -1)
+        if keys[pygame.K_SPACE] and type != "spawn":
+            self.shoot(missle_type = "basic", direction = -1)
+        
+        if keys[pygame.K_q] and type != "spawn":
+            if self.missles["bomb"] > 0:
+                if self.shoot(missle_type = "bomb", direction = -1):
+                    self.missles["bomb"] -= 1
 
         if keys[pygame.K_LEFT]:
             self.direction.x = -1
@@ -53,7 +58,7 @@ class Player(Spaceship):
         else:
             self.direction.x = 0
 
-    def update(self) -> None:
-        self.input()
+    def update(self, type = None) -> None:
+        self.input(type)
         self.damage()
         self.move()

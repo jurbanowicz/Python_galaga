@@ -2,6 +2,7 @@ import pygame
 from settings import *
 from time import time
 from objects.spaceship import Spaceship
+import random
 
 class Enemy(Spaceship):
 
@@ -35,7 +36,18 @@ class Enemy(Spaceship):
         self.level = level
     
 
-    def update(self) -> None:
-        self.damage()
-        self.shoot()
-        self.move()
+    def spawn(self) -> None:
+        self.rect.center += pygame.math.Vector2(x = 0, y = 1)
+        self.check_boundaries()
+        self.position = self.rect.center
+
+    def update(self, type = None) -> None:
+        if type == "spawn":
+            self.spawn()
+        else:
+            self.damage()
+            self.shoot(self.missle_type)
+            self.move()
+            self.direction += pygame.math.Vector2(random.random()*2 - 1, 0)
+
+    
