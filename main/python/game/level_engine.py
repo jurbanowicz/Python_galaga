@@ -88,8 +88,9 @@ class Level_engine:
                 self.enemies_sprites.remove(sprite)
                 self.spaceship_sprites.remove(sprite)
                 self.gui.visible_sprites.remove(sprite)
+                self.player.score += sprite.exp
                 del sprite
-                self.player.score += 10
+                
 
     def load_stage(self):
         self.enemies_sprites.update("spawn")

@@ -38,6 +38,8 @@ class Enemy(Spaceship):
         
         self.speed = enemy_info['speed']
         self.direction = pygame.Vector2()
+        self.exp = enemy_info['exp']
+
 
         self.level = level
     
