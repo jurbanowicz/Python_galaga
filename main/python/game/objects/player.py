@@ -15,9 +15,12 @@ class Player(Spaceship):
         
         super().__init__(position, groups, missle_sprites, level)
         
-        self.width = 75
-        self.height = 75
-        tmp_image = pygame.image.load('main/python/resources/player2.png').convert_alpha()
+        player_info = player_data['basic']
+
+        self.width = player_info['width']
+        self.height = player_info['height']
+
+        tmp_image = pygame.image.load(player_info['image_path']).convert_alpha()
         self.image = pygame.transform.scale(tmp_image, (self.width, self.height))
         self.rect = self.image.get_rect(topleft = position)
 
@@ -25,12 +28,13 @@ class Player(Spaceship):
 
         self.booster_sprites = booster_sprites
 
-        self.life = 100
-        self.speed = 8 # Modify the speed of the spaceship
+        self.life = player_info['life']
+        self.speed = player_info['speed'] # Modify the speed of the spaceship
         self.direction = pygame.math.Vector2()
         self.rect.center = WIDTH/2, HEIGHT - self.height
 
-        self.shooting_limiter = 0.2 # time between shots
+        self.shooting_limiter = player_info['shooting_limiter'] # time between shots
+        self.missle_location = player_info['missle_location']
 
         self.position = self.rect.center
 
@@ -58,7 +62,25 @@ class Player(Spaceship):
         else:
             self.direction.x = 0
 
+    def upgrade(self):
+        for sprite in self.booster_sprites:
+            if sprite.rect.colliderect(self.rect):
+                sprite.exists = False
+                self.powerup(sprite.booster_type)
+
+    def powerup(self, type: str)-> None:
+        match type:
+            case 'health':
+                self.life += 3
+
+            case 'bomb':
+                self.missles['bomb'] += 1
+
+
+
+
     def update(self, type = None) -> None:
         self.input(type)
         self.damage()
+        self.upgrade()
         self.move()

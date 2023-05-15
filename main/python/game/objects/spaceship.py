@@ -17,24 +17,20 @@ class Spaceship(Entity):
         
         super().__init__(position, groups)
 
-        self.life = 50
 
         self.last_shot = time()
-        self.shooting_limiter = 1 + random.uniform(-0.4, 0.4) # time between shots
 
         self.level = level
         self.position = position
         self.missle_sprites = missle_sprites
 
-        self.missle_type = 'basic_green'
     
     def shoot(self, missle_type, direction = 1) -> None:
         if time() - self.last_shot > self.shooting_limiter:
             self.last_shot = time()
-            # self.shot_fired = True
-            missle = Missle((self.position[0], self.position[1] + direction*50 - 10), [], missle_type, direction)
+            missle = Missle((self.position[0], self.position[1] + self.missle_location), [], missle_type, direction)
             self.level.missle_fired(missle)
-            # print(f'SHOT FIRED: {self.shot_fired}')
+
             return True
         return False
 

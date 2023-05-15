@@ -4,10 +4,12 @@ from level import Level
 from objects.missle import Missle
 from objects.player import Player
 from objects.enemy import Enemy
+from objects.booster import Booster
 
 from random import randint
 
 from settings import *
+import generate
 
 class Level_engine:
     def __init__(self) -> None:
@@ -16,6 +18,7 @@ class Level_engine:
         self.enemies_sprites = pygame.sprite.Group()
         self.missle_sprites = pygame.sprite.Group()
         self.booster_sprites = pygame.sprite.Group()
+
 
         self.gui = Level()
 
@@ -27,6 +30,8 @@ class Level_engine:
         self.level = 2
 
         self.stage_start_time = 0
+        self.booster_interval = generate.random_interval(8)
+        self.last_booster_time = 0
 
         
     def load_map(self, preset = None):
@@ -38,26 +43,46 @@ class Level_engine:
 
 
     def generate_enemies(self, n: int):
-        if (len(self.enemies_sprites) > 0 or len(self.missle_sprites) > 0 or len(self.booster_sprites) > 0):
+        if (len(self.enemies_sprites) > 0 or len(self.missle_sprites) > 0):
             return
-        for i in range(n):
-            enemy = (Enemy((randint(30, WIDTH-30), -10), [self.enemies_sprites, self.spaceship_sprites], 'basic', self.missle_sprites, self))
-            self.enemies_sprites.add(enemy)
-            self.gui.visible_sprites.add(enemy)
+        stage_data = generate.stage(self.level)
+        for enemy_type, enemy_no in stage_data.items():
+            for i in range(enemy_no):
+                enemy = (Enemy((randint(30, WIDTH-30), -10), [self.enemies_sprites, self.spaceship_sprites], enemy_type, self.missle_sprites, self))
+                self.enemies_sprites.add(enemy)
+                self.gui.visible_sprites.add(enemy)
         self.stage_start_time = time()
         self.level += 1
+
+    def generate_boosters(self):
+        if time() - self.last_booster_time > self.booster_interval:
+            booster_type = generate.booster_type()
+            booster = Booster((randint(30, WIDTH-30), -10), [self.booster_sprites], booster_type)
+            self.booster_sprites.add(booster)
+            self.gui.visible_sprites.add(booster)
+            
+            
+            self.last_booster_time = time()
+            self.booster_interval = generate.random_interval(30/(len(self.enemies_sprites)+0.1))
 
 
     def missle_fired(self, missle: Missle):
         self.missle_sprites.add(missle)
         self.gui.visible_sprites.add(missle)
 
-    def check_missle_collistion(self):
+    def check_collistion(self):
         for sprite in self.missle_sprites:
             if not sprite.exists:
                 self.missle_sprites.remove(sprite)
                 self.gui.visible_sprites.remove(sprite)
                 del sprite
+
+        for sprite in self.booster_sprites:
+            if not sprite.exists:
+                self.booster_sprites.remove(sprite)
+                self.gui.visible_sprites.remove(sprite)
+                del sprite
+        
         for sprite in self.enemies_sprites:
             if not sprite.exists:
                 self.enemies_sprites.remove(sprite)
@@ -75,12 +100,14 @@ class Level_engine:
     def stage(self):
         self.spaceship_sprites.update()
         self.missle_sprites.update()
+        self.generate_boosters()
 
-        self.check_missle_collistion()
+        self.check_collistion()
         self.gui.update()
 
     def run(self):
         self.generate_enemies(self.level)
+        self.booster_sprites.update()
         if time() - self.stage_start_time <= 2: 
             self.load_stage()
         else:

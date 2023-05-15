@@ -15,7 +15,7 @@ class Entity(pygame.sprite.Sprite):
         self.width = 60
         self.height = 60
 
-        tmp_image = pygame.image.load('main/python/resources/default.png').convert_alpha()
+        tmp_image = pygame.image.load('main/python/resources/booster1.png').convert_alpha()
         self.image = pygame.transform.scale(tmp_image, (self.width, self.height))
         self.rect = self.image.get_rect(topleft = position)
 
@@ -39,11 +39,12 @@ class Entity(pygame.sprite.Sprite):
 
         if self.rect.center[0] - self.width/2 <= 0:
             self.rect.center = self.width/2, self.rect.center[1]
-            self.direction.x = 2
+            self.direction.x = 10
 
         if self.rect.center[0] + self.width/2 >= WIDTH:
             self.rect.center = WIDTH - self.width/2, self.rect.center[1]
-            self.direction.x = -2
+            self.direction.x = -10
+
 
 
 
