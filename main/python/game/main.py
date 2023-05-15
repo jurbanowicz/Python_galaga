@@ -19,7 +19,7 @@ class Game:
     def run(self) -> None:
         while True:
             for event in pygame.event.get():
-                if event.type == pygame.QUIT:
+                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit() 
 
