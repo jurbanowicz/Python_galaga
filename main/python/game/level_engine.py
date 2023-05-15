@@ -43,12 +43,12 @@ class Level_engine:
 
 
     def generate_enemies(self, n: int):
-        if (len(self.enemies_sprites) > 0 or len(self.missle_sprites) > 0):
+        if (len(self.enemies_sprites) > 0 or len(self.missle_sprites) > 0 or len(self.booster_sprites)):
             return
         stage_data = generate.stage(self.level)
         for enemy_type, enemy_no in stage_data.items():
             for i in range(enemy_no):
-                enemy = (Enemy((randint(30, WIDTH-30), -10), [self.enemies_sprites, self.spaceship_sprites], enemy_type, self.missle_sprites, self))
+                enemy = (Enemy((randint(30, WIDTH-30), -10 + randint(-20,20)), [self.enemies_sprites, self.spaceship_sprites], enemy_type, self.missle_sprites, self))
                 self.enemies_sprites.add(enemy)
                 self.gui.visible_sprites.add(enemy)
         self.stage_start_time = time()
@@ -63,7 +63,7 @@ class Level_engine:
             
             
             self.last_booster_time = time()
-            self.booster_interval = generate.random_interval(30/(len(self.enemies_sprites)+0.1))
+            self.booster_interval = generate.random_interval(20/(len(self.enemies_sprites)+0.01))
 
 
     def missle_fired(self, missle: Missle):

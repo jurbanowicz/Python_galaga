@@ -34,9 +34,9 @@ class Spaceship(Entity):
             return True
         return False
 
-    def damage(self) -> None:
+    def damage(self, damage_direction: int = -1) -> None:
         for sprite in self.missle_sprites:
-            if sprite.rect.colliderect(self.rect):
+            if sprite.rect.colliderect(self.rect) and damage_direction == sprite.direction[1]:
                 sprite.exists = False
                 self.life -= sprite.damage
                 if self.life <= 0:

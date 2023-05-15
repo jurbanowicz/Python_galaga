@@ -81,6 +81,6 @@ class Player(Spaceship):
 
     def update(self, type = None) -> None:
         self.input(type)
-        self.damage()
+        self.damage(1)
         self.upgrade()
         self.move()
