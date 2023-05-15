@@ -5,6 +5,7 @@ from objects.missle import Missle
 from objects.player import Player
 from objects.enemy import Enemy
 from objects.booster import Booster
+from stats.stat_saver import save_game_result
 
 from random import randint
 
@@ -13,6 +14,8 @@ import generate
 
 class Level_engine:
     def __init__(self) -> None:
+
+        self.clock = pygame.time.Clock()
 
         self.spaceship_sprites = pygame.sprite.Group()
         self.enemies_sprites = pygame.sprite.Group()
@@ -107,12 +110,24 @@ class Level_engine:
         self.gui.update()
 
     def run(self):
-        self.generate_enemies(self.level)
-        self.booster_sprites.update()
-        if time() - self.stage_start_time <= 2: 
-            self.load_stage()
-        else:
-            self.stage()
+        while self.player.exists: 
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.player.exists = False
+
+            self.generate_enemies(self.level)
+            self.booster_sprites.update()
+            if time() - self.stage_start_time <= 2: 
+                self.load_stage()
+            else:
+                self.stage()
+
+            # self.clock.tick(FPS)
+            # pygame.display.update()
+
+        save_game_result(self.player.score)
+
+            
 
 
     

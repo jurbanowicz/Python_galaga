@@ -10,6 +10,8 @@ class Level:
 
         self.visible_sprites = pygame.sprite.Group()
 
+        self.clock = pygame.time.Clock()
+
         self.font = pygame.font.Font(None, 30)
         self.background_image = pygame.image.load('main/python/resources/background_image.jpg').convert_alpha()
         self.background_image = pygame.transform.scale(self.background_image, (WIDTH, HEIGHT))
@@ -40,5 +42,10 @@ class Level:
         self.draw_background()
         self.visible_sprites.draw(self.display_surface)
         self.display_score()
+
         debug(self.player.life)
+
+        pygame.display.update()
+        self.clock.tick(FPS)
+
         
