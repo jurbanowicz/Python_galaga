@@ -1,4 +1,4 @@
-import pygame
+import pygame, sys
 from time import time
 from level import Level
 from objects.missle import Missle
@@ -113,9 +113,13 @@ class Level_engine:
 
     def run(self):
         while self.player.exists: 
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_ESCAPE]:
+                self.player.exists = False
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    self.player.exists = False
+                    pygame.quit()
+                    sys.exit() 
 
             self.generate_enemies(self.level)
             self.booster_sprites.update()

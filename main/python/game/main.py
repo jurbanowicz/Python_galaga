@@ -4,6 +4,7 @@ from debug import debug
 # from level import Level
 from level_engine import Level_engine
 from stats.stat_screen import Stat_screen
+from starting_screen import starting_screen
 
 
 
@@ -18,14 +19,14 @@ class Game:
     def run(self) -> None:
         while True:
             for event in pygame.event.get():
-                 if event.type == pygame.QUIT:
+                if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit() 
 
-            self.screen.fill('black')
 
-            Level_engine().run()
-            Stat_screen().run()
+
+            self.screen.fill('black')
+            starting_screen().run()
 
             pygame.display.update()
 
