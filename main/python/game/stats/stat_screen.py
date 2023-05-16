@@ -28,7 +28,7 @@ class Stat_screen:
         for player, score in self.data[:5]:
             output += player + " --> " + str(score) + "\n"
 
-        output += "PRESS SPACE TO PLAY AGAIN"
+        output += "PRESS ENTER TO PLAY AGAIN"
         return output
     
     def draw_background(self):
@@ -67,7 +67,7 @@ class Stat_screen:
     def run(self):
         while not self.ext:
             keys = pygame.key.get_pressed()
-            if keys[pygame.K_SPACE]:
+            if keys[pygame.K_RETURN]:
                 self.ext = True
 
             for event in pygame.event.get():
