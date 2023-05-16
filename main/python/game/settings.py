@@ -2,7 +2,8 @@ WIDTH = 900
 HEIGHT = 800
 FPS = 60
 TITLESIZE = 64
-
+GAME_FONT = 'main/python/resources/upheavtt.ttf'
+FONT_COLOR = (255, 179, 0)
 
 
 player_data = {

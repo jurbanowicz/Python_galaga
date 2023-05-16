@@ -1,7 +1,6 @@
 import pygame, sys
 from settings import *
 from debug import debug
-# from level import Level
 from level_engine import Level_engine
 from stats.stat_screen import Stat_screen
 from starting_screen import starting_screen
