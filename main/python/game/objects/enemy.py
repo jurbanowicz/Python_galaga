@@ -37,6 +37,7 @@ class Enemy(Spaceship):
         
         
         self.speed = enemy_info['speed']
+        self.spawning_speed = enemy_info['spawning_speed']
         self.direction = pygame.Vector2()
         self.exp = enemy_info['exp']
 
@@ -45,7 +46,7 @@ class Enemy(Spaceship):
     
 
     def spawn(self) -> None:
-        self.rect.center += pygame.math.Vector2(x = 0, y = 1)
+        self.rect.center += pygame.math.Vector2(x = 0, y = 1) * self.spawning_speed
         self.check_boundaries()
         self.position = self.rect.center
 
