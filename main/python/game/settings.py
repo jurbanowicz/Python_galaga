@@ -64,6 +64,7 @@ enemy_data = {
                'missle_type' : 'basic_green',
                'missle_location' : 10,  
                'speed' : 0.2, 
+               'spawning_speed' : 3,
                'image_path' : 'main/python/resources/basic_enemy.png'},
             
 
@@ -75,6 +76,7 @@ enemy_data = {
                'missle_type' : 'basic_green',
                'missle_location' : 50, 
                'speed' : 0.2, 
+               'spawning_speed' : 2,
                'image_path' : 'main/python/resources/fighter.png'},
     'striker' : {'height' : 70,
                'width' : 70,
@@ -84,6 +86,7 @@ enemy_data = {
                'missle_type' : 'basic_orange',
                'missle_location' : 50,  
                'speed' : 0.3, 
+               'spawning_speed' : 3,
                'image_path' : 'main/python/resources/striker.png'},
     'heavy' : {'height' : 80,
                'width' : 80,
@@ -93,6 +96,7 @@ enemy_data = {
                'missle_type' : 'basic_yellow', 
                'missle_location' : 50, 
                'speed' : 0.1, 
+               'spawning_speed' : 1.25,
                'image_path' : 'main/python/resources/heavy.png'},
 
     'destroyer' : {'height' : 95,
@@ -102,7 +106,8 @@ enemy_data = {
                'shooting_limiter' : 0.6,
                'missle_type' : 'missle',
                'missle_location' : 65,  
-               'speed' : 0.1, 
+               'speed' : 0.15, 
+               'spawning_speed' : 0.75,
                'image_path' : 'main/python/resources/destroyer.png'}
 
 }

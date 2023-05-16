@@ -3,10 +3,10 @@ RESULTS_FILE = "main/python/game/stats/game_results.csv"
 '''Result file contains data save as
 PLAYER_NAME, SCORE'''
 
-def save_game_result(score: int, player_name: str = "JACEK"):
+def save_game_result(score: int, player_name: str = "Player"):
     data = get_stats()
-
-    data.append((player_name, score))
+    name = player_name + f"{len(data)}"
+    data.append((name, score))
 
     data.sort(key = lambda x: x[1], reverse = True)
 

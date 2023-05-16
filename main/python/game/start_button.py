@@ -17,7 +17,7 @@ class start_button:
         x, y = pygame.mouse.get_pos()
         print(f'X: {x} y: {y}')
         if self.start_rect.collidepoint(x, y):
-            print("BUTTONE PRESSED")
+            print("BUTTON PRESSED")
             return True
         return False
     

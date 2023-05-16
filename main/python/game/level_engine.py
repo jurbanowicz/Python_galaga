@@ -46,16 +46,17 @@ class Level_engine:
 
 
     def generate_enemies(self, n: int):
-        if (len(self.enemies_sprites) > 0 or len(self.missle_sprites) > 0 or len(self.booster_sprites)):
+        if (len(self.enemies_sprites) > 0 or len(self.missle_sprites) > 0 or len(self.booster_sprites) > 0):
             return
         stage_data = generate.stage(self.level)
         for enemy_type, enemy_no in stage_data.items():
             for i in range(enemy_no):
-                enemy = (Enemy((randint(30, WIDTH-30), -10 + randint(-20,20)), [self.enemies_sprites, self.spaceship_sprites], enemy_type, self.missle_sprites, self))
+                enemy = (Enemy((randint(30, WIDTH-30), -10 + randint(-5,5)), [self.enemies_sprites, self.spaceship_sprites], enemy_type, self.missle_sprites, self))
                 self.enemies_sprites.add(enemy)
                 self.gui.visible_sprites.add(enemy)
         self.stage_start_time = time()
         self.level += 1
+        self.booster_interval = generate.random_interval(20/(len(self.enemies_sprites)+0.01))
 
     def generate_boosters(self):
         if time() - self.last_booster_time > self.booster_interval:
@@ -99,6 +100,7 @@ class Level_engine:
         self.enemies_sprites.update("spawn")
         self.player.update("spawn")
         self.gui.update()
+        
 
 
     def stage(self):
@@ -117,7 +119,7 @@ class Level_engine:
 
             self.generate_enemies(self.level)
             self.booster_sprites.update()
-            if time() - self.stage_start_time <= 2: 
+            if time() - self.stage_start_time <= 1.5: 
                 self.load_stage()
             else:
                 self.stage()
