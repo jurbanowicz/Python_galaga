@@ -28,7 +28,7 @@ class Stat_screen:
         for player, score in self.data[:5]:
             output += player + " --> " + str(score) + "\n"
 
-        output += "PRESS ENTER TO PLAY AGAIN"
+        output += "PRESS ESC TO RETURN TO THE MENU"
         return output
     
     def draw_background(self):
@@ -42,11 +42,11 @@ class Stat_screen:
             self.scroll = 0
 
     def draw_stats(self):
-        font = pygame.font.SysFont('freesansbold.ttf', 100)
+        font = pygame.font.Font(GAME_FONT, 64)
         self.blit_text(self.display_surface, self.results_text, (WIDTH//5, 100), font)
 
 
-    def blit_text(self, surface, text, pos, font, color=pygame.Color('red')):
+    def blit_text(self, surface, text, pos, font, color=FONT_COLOR):
         words = [word.split(' ') for word in text.splitlines()]  # 2D array where each row is a list of words.
         space = font.size(' ')[0]  # The width of a space.
         max_width, max_height = surface.get_size()
@@ -76,8 +76,6 @@ class Stat_screen:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
-                
-                
 
             self.update_stats()
             self.draw_background()

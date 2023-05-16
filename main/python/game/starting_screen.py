@@ -30,9 +30,9 @@ class starting_screen:
             self.scroll = 0
 
     def create_buttons(self):
-        font = pygame.font.SysFont('freesansbold.ttf', 64)
-        self.text_start = font.render("START", True, (255, 0, 0))
-        self.text_stats = font.render("SCORES", True, (255, 0, 0))
+        font = pygame.font.Font(GAME_FONT, 64)
+        self.text_start = font.render("START", True, FONT_COLOR)
+        self.text_stats = font.render("SCORES", True, FONT_COLOR)
 
         self.start_rect = self.text_start.get_rect()
         self.stat_rect = self.text_stats.get_rect()
@@ -40,16 +40,12 @@ class starting_screen:
         self.start_rect.center = (WIDTH//4, HEIGHT//2)
         self.stat_rect.center = (3*WIDTH//4 , HEIGHT//2)
 
-        print(f'start rect: {self.start_rect} stats rect: {self.stat_rect}')
-
     def draw_buttons(self):
         self.display_surface.blit(self.text_start, self.start_rect)
         self.display_surface.blit(self.text_stats, self.stat_rect)
 
     def check_click(self):
         pos = pygame.mouse.get_pos()
-
-        print(f'mouse pos: {pos}')
 
         if (self.start_rect.collidepoint(pos)):
             self.start_game = True
