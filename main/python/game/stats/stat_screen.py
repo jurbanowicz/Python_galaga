@@ -70,6 +70,9 @@ class Stat_screen:
             if keys[pygame.K_RETURN]:
                 self.ext = True
 
+            if keys[pygame.K_ESCAPE]:
+                self.ext = True
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
