@@ -22,8 +22,6 @@ class Game:
                     pygame.quit()
                     sys.exit() 
 
-
-
             self.screen.fill('black')
             starting_screen().run()
 

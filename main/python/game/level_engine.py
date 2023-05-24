@@ -100,14 +100,11 @@ class Level_engine:
         self.enemies_sprites.update("spawn")
         self.player.update("spawn")
         self.gui.update()
-        
-
 
     def stage(self):
         self.spaceship_sprites.update()
         self.missle_sprites.update()
         self.generate_boosters()
-
         self.check_collistion()
         self.gui.update()
 
@@ -128,10 +125,22 @@ class Level_engine:
             else:
                 self.stage()
 
-            # self.clock.tick(FPS)
-            # pygame.display.update()
-
         save_game_result(self.player.score)
+
+        leave = False
+        self.gui.get_end_screen(self.player.score)
+
+
+        while not leave:
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_ESCAPE]:
+                leave = True
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()    
+
+            self.gui.update_end_screen()         
 
             
 
