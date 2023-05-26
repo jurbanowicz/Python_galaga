@@ -11,7 +11,6 @@ player_data = {
                'width' : 70,
                'life' : 100, 
                'shooting_limiter' : 0.2,
-               'missle_type' : 'basic_green',
                'missle_location' : -50, 
                'speed' : 8, 
                'image_path' : 'main/python/resources/player3.png'}
@@ -41,6 +40,12 @@ missle_data = {
             'damage' : 20, 
             'speed' : 8,
             'image_path' : 'main/python/resources/missle_yellow.png'},
+
+    'basic_white' : {'height' : 30,
+            'width' : 9,
+            'damage' : 12, 
+            'speed' : 8,
+            'image_path' : 'main/python/resources/missle_white.png'},
 
     'missle' : {'height' : 40,
             'width' : 20,
@@ -109,13 +114,47 @@ enemy_data = {
                'missle_location' : 65,  
                'speed' : 0.15, 
                'spawning_speed' : 0.75,
-               'image_path' : 'main/python/resources/destroyer.png'}
+               'image_path' : 'main/python/resources/destroyer.png'},
+
+    'helper' : {'height' : 60,
+                'width' : 60,
+                'life' : 30, 
+                'exp' : 10, 
+                'shooting_limiter' : 1,
+                'missle_type' : 'basic_green',
+                'missle_location' : 40,  
+                'speed' : 0.3, 
+                'spawning_speed' : 0.75,
+                'image_path' : 'main/python/resources/helper.png'},
+
+
+    'boss' : {'height' : 220,
+                'width' : 220,
+                'life' : 200, 
+                'exp' : 100, 
+                'shooting_limiter' : 1.3,
+                'missle_type' : 'missle',
+                'missle_location' : 75,  
+                'speed' : 0.1, 
+                'spawning_speed' : 2,
+                'image_path' : 'main/python/resources/boss.png'},
+
+    'reinforcement' : {'height' : 45,
+               'width' : 45,
+               'life' : 30, 
+               'exp' : 0, 
+               'shooting_limiter' : 0.6,
+               'missle_type' : 'basic_white',
+               'missle_location' : -40,  
+               'speed' : 0.3, 
+               'spawning_speed' : 0,
+               'image_path' : 'main/python/resources/reinforcement.png'}
 
 }
 booster_data = {
-    'shield' : {'height' : 10,
-               'width' : 10,
-               'image_path' : 'main/python/resources/shield.png',
+    'xp' : {'height' : 20,
+               'width' : 20,
+               'image_path' : 'main/python/resources/xp.png',
                'speed' : 3 },
     'health' : {'height' : 30,
                'width' : 25,
@@ -125,8 +164,8 @@ booster_data = {
                'width' : 20,
                'image_path' : 'main/python/resources/bomb_booster.png',
                'speed' : 3},
-    'freezer' : {'height' : 10,
-               'width' : 10,
-               'image_path' : 'main/python/resources/shield.png',
+    'reinforcement' : {'height' : 20,
+               'width' : 20,
+               'image_path' : 'main/python/resources/reinforce.png',
                'speed' : 3}
 }
