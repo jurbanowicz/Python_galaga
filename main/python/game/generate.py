@@ -5,7 +5,11 @@ import numpy as np
 from settings import *
 
 def stage(stage_no: int) -> dict:
-    n = stage_no*5 -random.randint(0,4)
+
+    if stage_no % 6 == 0:
+        return {'boss' : 1}
+    
+    n = (stage_no - stage_no//6)*5 -random.randint(0,4)
 
     T = [3*n//255]*4
 

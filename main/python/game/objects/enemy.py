@@ -11,7 +11,8 @@ class Enemy(Spaceship):
                  groups: list,
                  type: str,
                  missle_sprites: pygame.sprite.Group,
-                 level) -> None:
+                 level,
+                 y_direction = -1) -> None:
         
         super().__init__(position, groups, missle_sprites, level)
 
@@ -39,6 +40,7 @@ class Enemy(Spaceship):
         self.speed = enemy_info['speed']
         self.spawning_speed = enemy_info['spawning_speed']
         self.direction = pygame.Vector2()
+        self.y_direction = y_direction
         self.exp = enemy_info['exp']
 
 

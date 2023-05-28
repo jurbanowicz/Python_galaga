@@ -6,6 +6,7 @@ from objects.player import Player
 from objects.enemy import Enemy
 from objects.booster import Booster
 from stats.stat_saver import save_game_result
+from objects.boss import Boss
 
 from random import randint
 
@@ -19,6 +20,7 @@ class Level_engine:
 
         self.spaceship_sprites = pygame.sprite.Group()
         self.enemies_sprites = pygame.sprite.Group()
+        self.reinforcement_sprites = pygame.sprite.Group()
         self.missle_sprites = pygame.sprite.Group()
         self.booster_sprites = pygame.sprite.Group()
 
@@ -46,17 +48,36 @@ class Level_engine:
 
 
     def generate_enemies(self, n: int):
-        if (len(self.enemies_sprites) > 0 or len(self.missle_sprites) > 0 or len(self.booster_sprites) > 0):
+        if (len(self.enemies_sprites) or len(self.booster_sprites) > 0):
             return
+        
         stage_data = generate.stage(self.level)
         for enemy_type, enemy_no in stage_data.items():
             for i in range(enemy_no):
-                enemy = (Enemy((randint(30, WIDTH-30), -10 + randint(-5,5)), [self.enemies_sprites, self.spaceship_sprites], enemy_type, self.missle_sprites, self))
+                if enemy_type == 'boss':
+                    enemy = Boss((WIDTH/2, -80), [self.enemies_sprites, self.spaceship_sprites], enemy_type, self.missle_sprites, self,self.level)
+                    enemy.life += self.level/6*10
+
+                else:
+                    enemy = (Enemy((randint(30, WIDTH-30), -10 + randint(-5,5)), [self.enemies_sprites, self.spaceship_sprites], enemy_type, self.missle_sprites, self))
                 self.enemies_sprites.add(enemy)
                 self.gui.visible_sprites.add(enemy)
+        
         self.stage_start_time = time()
         self.level += 1
         self.booster_interval = generate.random_interval(20/(len(self.enemies_sprites)+0.01))
+
+    def generate_player_reinforcement(self, xp: int):
+        reinforcement = (Enemy((self.player.position[0], self.player.position[1] - 30), [self.reinforcement_sprites, self.spaceship_sprites], 'reinforcement', self.missle_sprites, self, 1))
+        reinforcement.life += xp/20
+        self.reinforcement_sprites.add(reinforcement)
+        self.gui.visible_sprites.add(reinforcement)
+
+
+    def generate_boss_reinforcement(self, position: tuple):
+        reinforcement = (Enemy((position), [self.enemies_sprites, self.spaceship_sprites], 'helper', self.missle_sprites, self, -1))
+        self.reinforcement_sprites.add(reinforcement)
+        self.gui.visible_sprites.add(reinforcement)
 
     def generate_boosters(self):
         if time() - self.last_booster_time > self.booster_interval:
@@ -94,11 +115,21 @@ class Level_engine:
                 self.gui.visible_sprites.remove(sprite)
                 self.player.score += sprite.exp
                 del sprite
+
+        for sprite in self.reinforcement_sprites:
+            if not sprite.exists:
+                self.reinforcement_sprites.remove(sprite)
+                self.spaceship_sprites.remove(sprite)
+                self.gui.visible_sprites.remove(sprite)
+                self.player.score += sprite.exp
+                del sprite
                 
 
     def load_stage(self):
         self.enemies_sprites.update("spawn")
+        self.reinforcement_sprites.update("spawn")
         self.player.update("spawn")
+        self.missle_sprites.update()
         self.gui.update()
 
     def stage(self):

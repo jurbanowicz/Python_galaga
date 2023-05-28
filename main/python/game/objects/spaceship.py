@@ -13,7 +13,8 @@ class Spaceship(Entity):
                  position: tuple,
                  groups: list,
                  missle_sprites: pygame.sprite.Group,
-                 level) -> None:
+                 level,
+                 y_direction = -1) -> None:
         
         super().__init__(position, groups)
 
@@ -24,19 +25,21 @@ class Spaceship(Entity):
         self.position = position
         self.missle_sprites = missle_sprites
 
+        self.y_direction = y_direction
+
     
-    def shoot(self, missle_type, direction = 1) -> None:
+    def shoot(self, missle_type) -> None:
         if time() - self.last_shot > self.shooting_limiter:
             self.last_shot = time()
-            missle = Missle((self.position[0], self.position[1] + self.missle_location), [], missle_type, direction)
+            missle = Missle((self.position[0], self.position[1] + self.missle_location), [], missle_type, -self.y_direction)
             self.level.missle_fired(missle)
 
             return True
         return False
 
-    def damage(self, damage_direction: int = -1) -> None:
+    def damage(self) -> None:
         for sprite in self.missle_sprites:
-            if sprite.rect.colliderect(self.rect) and damage_direction == sprite.direction[1]:
+            if sprite.rect.colliderect(self.rect) and self.y_direction == sprite.direction[1]:
                 sprite.exists = False
                 self.life -= sprite.damage
                 if self.life <= 0:
