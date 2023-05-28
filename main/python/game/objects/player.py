@@ -2,6 +2,7 @@ import pygame
 from settings import *
 from time import time
 from objects.spaceship import Spaceship
+from objects.enemy import Enemy
 # from level_engine import Level_engine
 
 class Player(Spaceship):
@@ -31,6 +32,7 @@ class Player(Spaceship):
         self.life = player_info['life']
         self.speed = player_info['speed'] # Modify the speed of the spaceship
         self.direction = pygame.math.Vector2()
+        self.y_direction = 1
         self.rect.center = WIDTH/2, HEIGHT - self.height
 
         self.shooting_limiter = player_info['shooting_limiter'] # time between shots
@@ -46,11 +48,11 @@ class Player(Spaceship):
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_SPACE] and type != "spawn":
-            self.shoot(missle_type = "basic", direction = -1)
+            self.shoot(missle_type = "basic")
         
         if keys[pygame.K_q] and type != "spawn":
             if self.missles["bomb"] > 0:
-                if self.shoot(missle_type = "bomb", direction = -1):
+                if self.shoot(missle_type = "bomb"):
                     self.missles["bomb"] -= 1
 
         if keys[pygame.K_LEFT]:
@@ -76,11 +78,18 @@ class Player(Spaceship):
             case 'bomb':
                 self.missles['bomb'] += 1
 
+            case 'reinforcement':
+                self.level.generate_player_reinforcement(self.score)
+
+            case 'xp':
+                self.score += 20
+                
+
 
 
 
     def update(self, type = None) -> None:
         self.input(type)
-        self.damage(1)
+        self.damage()
         self.upgrade()
         self.move()
