@@ -10,8 +10,11 @@ def save_game_result(score: int, player_name: str = "Player"):
 
     data.sort(key = lambda x: x[1], reverse = True)
 
+    n = len(data)
+    if n > 100:
+        n = 100
     with open(RESULTS_FILE, "w") as f:
-        for line in data:
+        for line in data[:n]:
             f.write(line[0] + "," + str(line[1]) + "\n")
 
 
