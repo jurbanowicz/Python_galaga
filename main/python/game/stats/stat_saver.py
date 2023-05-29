@@ -5,7 +5,7 @@ PLAYER_NAME, SCORE'''
 
 def save_game_result(score: int, player_name: str = "Player"):
     data = get_stats()
-    name = player_name + f"{len(data)}"
+    name = player_name
     data.append((name, score))
 
     data.sort(key = lambda x: x[1], reverse = True)
