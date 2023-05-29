@@ -23,6 +23,7 @@ class Enemy(Spaceship):
         self.width = enemy_info['width']
 
         self.life = enemy_info['life']
+        self.max_health = enemy_info['life']
 
         self.shooting_limiter = enemy_info['shooting_limiter'] + random.uniform(-0.4, 0.4)
         self.missle_type = enemy_info['missle_type']
@@ -46,6 +47,11 @@ class Enemy(Spaceship):
 
         self.level = level
     
+    def get_healthbar_pos(self):
+        return self.rect.center[0], self.rect.center[1] - self.height
+    
+    def get_health_ratio(self):
+        return self.life / self.max_health
 
     def spawn(self) -> None:
         self.rect.center += pygame.math.Vector2(x = 0, y = 1) * self.spawning_speed
