@@ -20,10 +20,9 @@ class starting_screen:
         self.show_stats = False
         self.create_buttons()
         self.player_name = None
-        self.get_player_name()
+        
 
     def get_player_name(self):
-        pygame.display.set_caption("Enter Your Name")
         font = pygame.font.Font(GAME_FONT, 32)
         input_rect = pygame.Rect(WIDTH//2 - 100, HEIGHT//2, 200, 32)
         name = ""
@@ -43,7 +42,7 @@ class starting_screen:
                     else:
                         name += event.unicode
 
-            self.display_surface.blit(self.background_image, (0, 0))
+            self.draw_background()
 
             text_surface = font.render("Enter Your Name:", True, FONT_COLOR)
             text_rect = text_surface.get_rect(center=(WIDTH//2, HEIGHT//2 - 50))
@@ -92,6 +91,8 @@ class starting_screen:
             self.show_stats = True
 
     def run(self):
+        self.get_player_name()
+
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

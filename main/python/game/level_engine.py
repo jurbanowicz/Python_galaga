@@ -147,15 +147,16 @@ class Level_engine:
 
 
     def run(self, player_name: str = "player"):
+        print("player name is", player_name)
 
         while self.player.exists: 
-            keys = pygame.key.get_pressed()
-            if keys[pygame.K_ESCAPE]:
-                self.player.exists = False
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit() 
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        self.player.exists = False
 
             self.generate_enemies(self.level)
             self.booster_sprites.update()
@@ -175,13 +176,13 @@ class Level_engine:
 
 
         while not leave:
-            keys = pygame.key.get_pressed()
-            if keys[pygame.K_ESCAPE]:
-                leave = True
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
-                    sys.exit()    
+                    sys.exit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        leave = True
 
             self.gui.update_end_screen()         
 

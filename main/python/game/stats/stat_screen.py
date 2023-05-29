@@ -28,7 +28,9 @@ class Stat_screen:
         for player, score in self.data[:5]:
             output += player + " --> " + str(score) + "\n"
 
-        output += "PRESS ESC TO RETURN TO THE MENU"
+        output += "\n"
+        output += "PRESS ESC\n"
+        output += "TO RETURN TO MENU"
         return output
     
     def draw_background(self):
@@ -43,25 +45,35 @@ class Stat_screen:
 
     def draw_stats(self):
         font = pygame.font.Font(GAME_FONT, 64)
-        self.blit_text(self.display_surface, self.results_text, (WIDTH//5, 100), font)
+        self.blit_text(self.display_surface, self.results_text, (WIDTH//2, 100), font)
 
 
     def blit_text(self, surface, text, pos, font, color=FONT_COLOR):
-        words = [word.split(' ') for word in text.splitlines()]  # 2D array where each row is a list of words.
-        space = font.size(' ')[0]  # The width of a space.
-        max_width, max_height = surface.get_size()
+        # words = [word.split(' ') for word in text.splitlines()]  # 2D array where each row is a list of words.
+        # space = font.size(' ')[0]  # The width of a space.
+        # max_width, max_height = surface.get_size()
+        # x, y = pos
+        # for line in words:
+        #     for word in line:
+        #         word_surface = font.render(word, 0, color)
+        #         word_width, word_height = word_surface.get_size()
+        #         if x + word_width >= max_width:
+        #             x = pos[0]  # Reset the x.
+        #             y += word_height + 10 # Start on new row.
+        #         surface.blit(word_surface, (x, y))
+        #         x += word_width + space
+        #     x = pos[0]  # Reset the x.
+        #     y += word_height + 10 # Start on new row.
+        lines = text.splitlines()
         x, y = pos
-        for line in words:
-            for word in line:
-                word_surface = font.render(word, 0, color)
-                word_width, word_height = word_surface.get_size()
-                if x + word_width >= max_width:
-                    x = pos[0]  # Reset the x.
-                    y += word_height + 10 # Start on new row.
-                surface.blit(word_surface, (x, y))
-                x += word_width + space
-            x = pos[0]  # Reset the x.
-            y += word_height + 10 # Start on new row.
+        for line in lines:
+            if line == "\n":
+                y += 20
+            line_surface = font.render(line, 0, color)
+            line_width, line_height = line_surface.get_size()
+            surface.blit(line_surface, (x - line_width//2, y))
+            y += line_height + 10
+
 
 
     def run(self):
