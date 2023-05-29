@@ -7,6 +7,7 @@ from debug import debug
 HEALTH_GREEN = (0, 255, 0)
 HEALTH_YELLOW = (255, 255, 0)
 HEALTH_RED = (255, 0, 0)
+HEALTH_GRAY = (200, 200, 200)
 
 
 class Level:
@@ -55,13 +56,14 @@ class Level:
         for enemy in self.enemies:
             pos = enemy.get_healthbar_pos()
             ratio = enemy.get_health_ratio()
-            color = HEALTH_GREEN
+            color = HEALTH_GRAY
+            """
             if ratio < 0.6:
                 color = HEALTH_YELLOW
             if ratio < 0.3:
                 color = HEALTH_RED
-
-            bar_size = (ratio * 80, 5)
+            """
+            bar_size = (ratio * 40, 3)
             pos = pos[0] - bar_size[0]//2, pos[1] + bar_size[1] + 15
 
             pygame.draw.rect(self.display_surface, color, (pos, bar_size))
