@@ -5,6 +5,8 @@ PLAYER_NAME, SCORE'''
 
 def save_game_result(score: int, player_name: str = "Player"):
     data = get_stats()
+    if player_name == "":
+        player_name = player_name + str(len(data))
     name = player_name
     data.append((name, score))
 
