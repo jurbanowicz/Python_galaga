@@ -127,6 +127,7 @@ class Level_engine:
                 self.gui.visible_sprites.remove(sprite)
                 self.gui.enemies.remove(sprite)
                 self.player.score += sprite.exp
+
                 del sprite
                 
 
@@ -135,6 +136,7 @@ class Level_engine:
         self.reinforcement_sprites.update("spawn")
         self.player.update("spawn")
         self.missle_sprites.update()
+        self.check_collistion()
 
 
     def stage(self):
