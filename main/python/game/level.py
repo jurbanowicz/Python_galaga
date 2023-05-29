@@ -4,11 +4,17 @@ from math import ceil
 
 from debug import debug
 
+HEALTH_GREEN = (0, 255, 0)
+HEALTH_YELLOW = (255, 255, 0)
+HEALTH_RED = (255, 0, 0)
+
+
 class Level:
     def __init__(self) -> None:
         self.display_surface = pygame.display.get_surface()
 
         self.visible_sprites = pygame.sprite.Group()
+        self.enemies = pygame.sprite.Group()
 
         self.clock = pygame.time.Clock()
 
@@ -45,6 +51,22 @@ class Level:
         health_rect.center = 50 , 20
         self.display_surface.blit(health, health_rect)
 
+    def display_enemy_health(self):
+        for enemy in self.enemies:
+            pos = enemy.get_healthbar_pos()
+            ratio = enemy.get_health_ratio()
+            color = HEALTH_GREEN
+            if ratio < 0.6:
+                color = HEALTH_YELLOW
+            if ratio < 0.3:
+                color = HEALTH_RED
+
+            bar_size = (ratio * 80, 5)
+            pos = pos[0] - bar_size[0]//2, pos[1] + bar_size[1] + 15
+
+            pygame.draw.rect(self.display_surface, color, (pos, bar_size))
+
+
     def display_bombs(self):
         bomb_string = "BOMBS: " + str(self.player.missles["bomb"])
         bombs = self.font.render(bomb_string, True, (255, 255, 255))
@@ -79,11 +101,15 @@ class Level:
         self.visible_sprites.draw(self.display_surface)
         self.display_score()
         self.display_health()
+        self.display_enemy_health()
         self.display_bombs()
 
         # debug(self.player.life)
 
         pygame.display.update()
         self.clock.tick(FPS)
+
+    # def run(self):
+    #     self.update()
 
         

@@ -3,6 +3,8 @@ from settings import *
 from start_button import start_button
 from level_engine import Level_engine
 from stats.stat_screen import Stat_screen
+import threading
+
 
 class starting_screen:
     def __init__(self) -> None:
@@ -18,6 +20,14 @@ class starting_screen:
         self.start_game = False
         self.show_stats = False
         self.create_buttons()
+        self.player_name = None
+
+        # self.io_thread = threading.Thread(target=self.get_player_name)
+
+        # self.io_thread.start()
+
+    def get_player_name(self):
+        self.player_name = input()
 
     def draw_background(self):
 
@@ -65,8 +75,6 @@ class starting_screen:
 
             self.draw_background()
 
-            # Level_engine().run()
-            # Stat_screen().run()
             self.draw_buttons()
 
             if self.start_game:

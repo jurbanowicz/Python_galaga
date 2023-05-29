@@ -24,6 +24,11 @@ class Boss(Enemy):
         self.last_helper_time = time()
         self.next_helper_time = generate.random_interval(24/(self.level_no+2))
 
+    def get_healthbar_pos(self):
+        return super().get_healthbar_pos()
+    
+    def get_health_ratio(self):
+        return super().get_health_ratio()
 
     def generate_helper(self):
         if time()-self.last_helper_time >= self.next_helper_time:
