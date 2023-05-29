@@ -168,7 +168,7 @@ class Level_engine:
 
 
 
-        save_game_result(self.player.score)
+        save_game_result(self.player.score, player_name)
 
         leave = False
         self.gui.get_end_screen(self.player.score)
