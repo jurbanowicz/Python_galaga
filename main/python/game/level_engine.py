@@ -74,12 +74,13 @@ class Level_engine:
         reinforcement.life += xp/20
         self.reinforcement_sprites.add(reinforcement)
         self.gui.visible_sprites.add(reinforcement)
+        self.gui.enemies.add(reinforcement)
 
     def generate_boss_reinforcement(self, position: tuple):
         reinforcement = (Enemy((position), [self.enemies_sprites, self.spaceship_sprites], 'helper', self.missle_sprites, self, -1))
         self.reinforcement_sprites.add(reinforcement)
         self.gui.visible_sprites.add(reinforcement)
-        # self.gui.enemies.add(reinforcement)
+        self.gui.enemies.add(reinforcement)
 
     def generate_boosters(self):
         if time() - self.last_booster_time > self.booster_interval:
@@ -124,6 +125,7 @@ class Level_engine:
                 self.reinforcement_sprites.remove(sprite)
                 self.spaceship_sprites.remove(sprite)
                 self.gui.visible_sprites.remove(sprite)
+                self.gui.enemies.remove(sprite)
                 self.player.score += sprite.exp
                 del sprite
                 
