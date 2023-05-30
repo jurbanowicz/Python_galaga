@@ -72,6 +72,7 @@ class Level_engine:
     def generate_player_reinforcement(self, xp: int):
         reinforcement = (Enemy((self.player.position[0], self.player.position[1] - 30), [self.reinforcement_sprites, self.spaceship_sprites], 'reinforcement', self.missle_sprites, self, 1))
         reinforcement.life += xp/20
+        reinforcement.max_health += xp/20
         self.reinforcement_sprites.add(reinforcement)
         self.gui.visible_sprites.add(reinforcement)
         self.gui.enemies.add(reinforcement)
