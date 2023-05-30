@@ -51,8 +51,6 @@ class Enemy(Spaceship):
         return self.rect.center[0], self.rect.center[1] - self.height
     
     def get_health_ratio(self):
-        if self.life > self.max_health:
-            self.max_health = self.life
         return self.life / self.max_health
 
     def spawn(self) -> None:
