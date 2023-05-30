@@ -117,6 +117,7 @@ class Level_engine:
                 self.spaceship_sprites.remove(sprite)
                 self.gui.visible_sprites.remove(sprite)
                 self.gui.enemies.remove(sprite)
+                self.gui.add_explosion(sprite.rect.topleft, sprite.rect.width)
                 self.player.score += sprite.exp
                 del sprite
 
@@ -126,6 +127,7 @@ class Level_engine:
                 self.spaceship_sprites.remove(sprite)
                 self.gui.visible_sprites.remove(sprite)
                 self.gui.enemies.remove(sprite)
+                self.gui.add_explosion(sprite.rect.topleft, sprite.rect.width)
                 self.player.score += sprite.exp
 
                 del sprite
@@ -147,7 +149,6 @@ class Level_engine:
 
 
     def run(self, player_name: str = "player"):
-        print("player name is", player_name)
 
         while self.player.exists: 
             for event in pygame.event.get():

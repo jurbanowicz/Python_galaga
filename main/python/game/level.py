@@ -1,6 +1,7 @@
 import pygame
 from settings import *
 from math import ceil
+from objects.explosion_animation import Animation
 
 from debug import debug
 
@@ -16,6 +17,7 @@ class Level:
 
         self.visible_sprites = pygame.sprite.Group()
         self.enemies = pygame.sprite.Group()
+        self.explosions = set() 
 
         self.clock = pygame.time.Clock()
 
@@ -68,6 +70,12 @@ class Level:
 
             pygame.draw.rect(self.display_surface, color, (pos, bar_size))
 
+    def add_explosion(self, position, width):
+        self.explosions.add(Animation(self.display_surface, position, width))
+
+    def update_explosions(self):
+        for exp in self.explosions:
+            exp.display_explosion()
 
     def display_bombs(self):
         bomb_string = "BOMBS: " + str(self.player.missles["bomb"])
@@ -105,6 +113,7 @@ class Level:
         self.display_health()
         self.display_enemy_health()
         self.display_bombs()
+        self.update_explosions()
 
         # debug(self.player.life)
 
