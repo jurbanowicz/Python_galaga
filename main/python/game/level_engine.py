@@ -130,8 +130,7 @@ class Level_engine:
                 self.gui.add_explosion(sprite.rect.topleft, sprite.rect.width)
                 self.player.score += sprite.exp
 
-                del sprite
-                
+                del sprite          
 
     def load_stage(self):
         self.enemies_sprites.update("spawn")
